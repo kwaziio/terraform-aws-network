@@ -1,4 +1,4 @@
-# Terraform Amazon Web Services (AWS) Network Module
+# Terraform AWS Network Module by KWAZI
 
 Terraform Module for Creating a Configurable Network Stack on Amazon Web Services (AWS)
 
@@ -86,13 +86,15 @@ In the example above, you should replace the following templated values:
 
 Placeholder | Description
 --- | ---
-`REPLACE_WITH_NETWORK_NAME` | Replace this w/ a Network Name that Makes Sense for Your Use Case (i.e., `development`, `production`)
-`REPLACE_WITH_VPN_IP` | Replace this w/ the IP Address of Your VPN (If You're Not Using a VPN, Add Each Admin's IP Address to the List)
+`REPLACE_WITH_NETWORK_NAME` | Replace this w/ a Network Name that Makes Sense for Your Use Case
+`REPLACE_WITH_VPN_IP` | Replace this w/ the IP Address of Your VPN or Personal Device
 `X` | Replace the Second Octet Value w/ Any Number from 0 to 255
 
 ## Need Help?
 
-Working in a strict environment? Struggling to make design decisions you feel comfortable with? Want help from an expert that you can rely on -- one who won't abandon you when the job is finished? Check us out at [https://www.kwazi.io](https://www.kwazi.io).
+Working in a strict environment? Struggling to make design decisions you feel comfortable with? Want help from an expert that you can rely on -- one who won't abandon you when the job is finished?
+
+Check us out at [https://www.kwazi.io](https://www.kwazi.io).
 
 ## Designing a Deployment
 
@@ -109,7 +111,9 @@ Before launching this module, your team should agree on the following decision p
 
 ### Will you need to disable IPv6 support?
 
-Leveraging IPv6 can lead to significant savings when working with AWS, because hosted resources can take advantage of Egress-Only Internet Gateways. These gateways allow resources to access the internet and receive responses, but explicitly block externally-initiated requests. Using Egress-Only Internet Gateways reduces (and occasionally eliminates) the need for Network Address Translation (NAT) Gateways, which have both hourly and usage based fees.
+Leveraging IPv6 can lead to significant savings when working with AWS, because hosted resources can take advantage of Egress-Only Internet Gateways. These gateways allow resources to access the internet and receive responses, but explicitly block externally-initiated requests.
+
+Using Egress-Only Internet Gateways reduces (and occasionally eliminates) the need for Network Address Translation (NAT) Gateways, which have both hourly and usage based fees.
 
 Unless you're part of an organization that explicitly prohibits IPv6 support, then you probably want to have this feature enabled here. If you _do_ need to disable IPv6 support, you can do so by setting the following variable:
 
@@ -119,7 +123,9 @@ network_enable_ipv6 = false
 
 ### Will you need to disable all internet access?
 
-If your resources will need to reach the internet for any reason at all -- including for tasks such as downloading operating system updates -- and your team isn't planning on leveraging a dedicated Transit Gateway or external proxy setup, then the answer to this question should be _no_. If the answer is _yes_, then you can disable internet access by setting the following variable:
+If your resources will need to reach the internet for any reason at all -- including for tasks such as downloading operating system updates -- and your team isn't planning on leveraging a dedicated Transit Gateway or external proxy setup, then the answer to this question should be _no_.
+
+If the answer is _yes_, then you can disable internet access by setting the following variable:
 
 ```HCL
 network_enable_internet = false
@@ -148,7 +154,7 @@ If your team is small and you don't need to worry about organizational restricti
 * The Largest CIDR Range for a VPC is /16
 * The Smallest CIDR Range for a VPC is /28
 
-If you're stuck dealing with a complex setup, reach out to us for help: [https://www.kwazi.io](https://www.kwazi.io)
+If you're stuck dealing with a complex setup, [reach out to us for help](https://www.kwazi.io).
 
 ### Will you need to restrict outbound requests by destination CIDR?
 
@@ -159,7 +165,7 @@ network_egress_cidr_block_ipv4 = "0.0.0.0/0" # Replace w/ Required IPv4 CIDR
 network_egress_cidr_block_ipv6 = "::/0"      # Replace w/ Required IPv6 CIDR
 ```
 
-If you want more advice on cleaner ways to deal with air-tight regulatory environments, we can help: [https://www.kwazi.io](https://www.kwazi.io)
+If you want more advice on cleaner ways to deal with air-tight regulatory environments, [we can help](https://www.kwazi.io).
 
 ### Will you need to disable DNS support?
 
