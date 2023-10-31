@@ -1,6 +1,6 @@
-###########################################################################
-# Updates Default Network Access Control List (NACL) [Stateless Firewall] #
-###########################################################################
+#########################################################################
+# Updates Default Network Access Control List (NACL) [Network Firewall] #
+#########################################################################
 
 resource "aws_default_network_acl" "main" {
   default_network_acl_id = aws_vpc.main.default_network_acl_id
@@ -69,9 +69,9 @@ resource "aws_default_network_acl" "main" {
   }
 }
 
-#########################################################################################
-# Creates Network Access Control List (NACL) [Stateless Firewall] for Private Subnet(s) #
-#########################################################################################
+#######################################################################################
+# Creates Network Access Control List (NACL) [Network Firewall] for Private Subnet(s) #
+#######################################################################################
 
 resource "aws_network_acl" "private" {
   vpc_id = aws_vpc.main.id
@@ -127,9 +127,9 @@ resource "aws_network_acl_rule" "private_ingress_internal_all_ipv6" {
   rule_number     = 55
 }
 
-########################################################################################
-# Creates Network Access Control List (NACL) [Stateless Firewall] for Public Subnet(s) #
-########################################################################################
+######################################################################################
+# Creates Network Access Control List (NACL) [Network Firewall] for Public Subnet(s) #
+######################################################################################
 
 resource "aws_network_acl" "public" {
   vpc_id = aws_vpc.main.id

@@ -1,6 +1,6 @@
-##########################################################
-# Updates Default VPC Security Group [Stateful Firewall] #
-##########################################################
+#############################################################
+# Updates Default VPC Security Group [Application Firewall] #
+#############################################################
 
 resource "aws_default_security_group" "main" {
   vpc_id = aws_vpc.main.id
@@ -62,9 +62,9 @@ resource "aws_vpc_security_group_ingress_rule" "default_ssh_bastion" {
   }
 }
 
-###############################################################
-# Creates Bastion Host VPC Security Group [Stateful Firewall] #
-###############################################################
+##################################################################
+# Creates Bastion Host VPC Security Group [Application Firewall] #
+##################################################################
 
 resource "aws_security_group" "bastion" {
   description = "Firewall Rules Associated w/ Bastion Host Resources"
