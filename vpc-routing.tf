@@ -31,6 +31,13 @@ resource "aws_route" "private_internet_gateway" {
   route_table_id              = one(aws_route_table.private).id
 }
 
+resource "aws_route" "private_internet_gateway" {
+  cidr_block             = "0.0.0.0/0"
+  count                  = var.network_enable_nat && length(var.subnets_private) > 0 ? 1 : 0
+  egress_only_gateway_id = one(aws_egress_only_internet_gateway.main).id
+  route_table_id         = one(aws_route_table.private).id
+}
+
 resource "aws_vpc_endpoint_route_table_association" "private_dynamodb" {
   count           = length(var.subnets_private) > 0 ? 1 : 0
   route_table_id  = one(aws_route_table.private).id
