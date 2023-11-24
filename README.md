@@ -212,3 +212,24 @@ The following examples are provided as guidance:
 
 * [examples/complex](examples/complex/main.tf)
 * [examples/minimal](examples/minimal/main.tf)
+
+## Common Customizations
+
+The following list includes examples for overriding some of the assumptions we've made here, giving you the flexibility to put your own twist on what's created.
+
+### Working w/ Multiple NAT Gateway
+
+There are some scenarios where having unique NAT gateways for each private subnet (keeping traffic within a single AZ) may be preferred. This is usually the case when there are extremely high volumes of traffic leaving the network from each private subnet.
+
+To enable support for this, complete the following steps:
+
+1. Disable NAT Gateway Creation by Setting `network_enable_nat` to `false`
+2. Create at Least One Public Subnet in Each Availability Zone (AZ) w/ a Private Subnet
+
+Completing the steps above will allow you to define your own resources:
+
+1. Create an Elastic IP Address (EIP) for Each Availability Zone (AZ)
+2. Create a NAT Gateway for Each Availability Zone (AZ)
+3. Create a Route in Each Private Subnet Route Table w/ Matching NAT Gateway
+
+For a detailed example, see [the custom example](examples/custom/README.md) provided by this project.

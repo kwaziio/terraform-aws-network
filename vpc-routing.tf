@@ -15,38 +15,38 @@ resource "aws_default_route_table" "main" {
 ####################################################################
 
 resource "aws_route_table" "private" {
-  count  = length(var.subnets_private) > 0 ? 1 : 0
+  count  = length(var.subnets_private)
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.network_tags_name}-private"
+    Name = "${var.network_tags_name}-${var.subnets_private[count.index].name}"
     Type = "private"
   }
 }
 
 resource "aws_route" "private_internet_gateway" {
-  count                       = var.network_enable_ipv6 && length(var.subnets_private) > 0 ? 1 : 0
+  count                       = var.network_enable_ipv6 && length(var.subnets_private) > 0 ? length(var.subnets_private) : 0
   destination_ipv6_cidr_block = "::/0"
   egress_only_gateway_id      = one(aws_egress_only_internet_gateway.main).id
-  route_table_id              = one(aws_route_table.private).id
+  route_table_id              = aws_route_table.private[count.index].id
 }
 
-resource "aws_route" "private_internet_gateway" {
-  cidr_block             = "0.0.0.0/0"
-  count                  = var.network_enable_nat && length(var.subnets_private) > 0 ? 1 : 0
-  egress_only_gateway_id = one(aws_egress_only_internet_gateway.main).id
-  route_table_id         = one(aws_route_table.private).id
+resource "aws_route" "private_nat_gateway" {
+  count                  = var.network_enable_nat && length(var.subnets_private) > 0 ? length(var.subnets_private) : 0
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = one(aws_nat_gateway.main).id
+  route_table_id         = aws_route_table.private[count.index].id
 }
 
 resource "aws_vpc_endpoint_route_table_association" "private_dynamodb" {
-  count           = length(var.subnets_private) > 0 ? 1 : 0
-  route_table_id  = one(aws_route_table.private).id
+  count           = length(var.subnets_private)
+  route_table_id  = aws_route_table.private[count.index].id
   vpc_endpoint_id = aws_vpc_endpoint.dynamodb.id
 }
 
 resource "aws_vpc_endpoint_route_table_association" "private_s3" {
-  count           = length(var.subnets_private) > 0 ? 1 : 0
-  route_table_id  = one(aws_route_table.private).id
+  count           = length(var.subnets_private)
+  route_table_id  = aws_route_table.private[count.index].id
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
 }
 
