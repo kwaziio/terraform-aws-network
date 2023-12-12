@@ -1,3 +1,17 @@
+######################################################################
+# Provides Information for Firewall Resources Created by this Module #
+######################################################################
+
+output "firewall_bastion_id" {
+  description = "ID of the Bastion VPC Security Group [Firewall]"
+  value       = aws_security_group.bastion.id
+}
+
+output "firewall_default_id" {
+  description = "ID of the Default VPC Security Group [Firewall]"
+  value       = aws_default_security_group.main.id
+}
+
 #####################################################################
 # Provides Information for Network Resources Created by this Module #
 #####################################################################
