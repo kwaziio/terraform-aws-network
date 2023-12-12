@@ -127,6 +127,28 @@ resource "aws_network_acl_rule" "private_ingress_internal_all_ipv6" {
   rule_number     = 55
 }
 
+resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv4" {
+  cidr_block     = "0.0.0.0/0"
+  egress         = false
+  from_port      = 32768
+  network_acl_id = aws_network_acl.private.id
+  protocol       = "tcp"
+  rule_action    = "allow"
+  rule_number    = 56
+  to_port        = 65535
+}
+
+resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv6" {
+  egress          = false
+  from_port       = 32768
+  ipv6_cidr_block = "::/0"
+  network_acl_id  = aws_network_acl.private.id
+  protocol        = "tcp"
+  rule_action     = "allow"
+  rule_number     = 56
+  to_port         = 65535
+}
+
 ######################################################################################
 # Creates Network Access Control List (NACL) [Network Firewall] for Public Subnet(s) #
 ######################################################################################
