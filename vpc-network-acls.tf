@@ -145,7 +145,7 @@ resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv6" {
   network_acl_id  = aws_network_acl.private.id
   protocol        = "tcp"
   rule_action     = "allow"
-  rule_number     = 56
+  rule_number     = 57
   to_port         = 65535
 }
 
