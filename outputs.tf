@@ -39,6 +39,8 @@ output "routers_private" {
   description = "List of Objects Representing Private Router Attributes"
 
   value = [for router in aws_route_table.private : {
+    arn  = router.arn
+    id   = router.id
     name = router.tags_all["Name"]
   }]
 }
@@ -47,6 +49,8 @@ output "routers_public" {
   description = "List of Objects Representing Public Router Attributes"
 
   value = [for router in aws_route_table.public : {
+    arn  = router.arn
+    id   = router.id
     name = router.tags_all["Name"]
   }]
 }
