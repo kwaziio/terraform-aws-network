@@ -12,6 +12,7 @@ resource "aws_default_security_group" "main" {
 
 resource "aws_vpc_security_group_egress_rule" "default_all_ipv4" {
   cidr_ipv4         = "0.0.0.0/0"
+  count             = var.network_enable_default_security_group ? 1 : 0
   description       = "Allows All Outbound Access to IPv4 Destinations"
   from_port         = 0
   ip_protocol       = "tcp"
@@ -25,6 +26,7 @@ resource "aws_vpc_security_group_egress_rule" "default_all_ipv4" {
 
 resource "aws_vpc_security_group_egress_rule" "default_all_ipv6" {
   cidr_ipv6         = "::/0"
+  count             = var.network_enable_default_security_group ? 1 : 0
   description       = "Allows All Outbound Access to IPv6 Destinations"
   from_port         = 0
   ip_protocol       = "tcp"
@@ -37,6 +39,7 @@ resource "aws_vpc_security_group_egress_rule" "default_all_ipv6" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "default_rdp_bastion" {
+  count                        = var.network_enable_default_security_group ? 1 : 0
   description                  = "Allows RDP Connections from Bastion Host(s)"
   from_port                    = var.network_default_rdp_port
   ip_protocol                  = "tcp"
@@ -50,6 +53,7 @@ resource "aws_vpc_security_group_ingress_rule" "default_rdp_bastion" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "default_ssh_bastion" {
+  count                        = var.network_enable_default_security_group ? 1 : 0
   description                  = "Allows SSH Connections from Bastion Host(s)"
   from_port                    = var.network_default_ssh_port
   ip_protocol                  = "tcp"

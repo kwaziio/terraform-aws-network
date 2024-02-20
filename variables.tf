@@ -31,6 +31,12 @@ variable "network_egress_cidr_block_ipv6" {
   type        = string
 }
 
+variable "network_enable_default_security_group" {
+  default     = true
+  description = "'true' if Default Security Group Should Support Standard Firewall Rules"
+  type        = bool
+}
+
 variable "network_enable_dns_hostnames" {
   default     = true
   description = "'true' if DNS Hostnames Should be Generated for Instances in the Created Network"
