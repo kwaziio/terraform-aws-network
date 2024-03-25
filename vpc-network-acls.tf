@@ -130,7 +130,7 @@ resource "aws_network_acl_rule" "private_ingress_internal_all_ipv6" {
 resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv4" {
   cidr_block     = "0.0.0.0/0"
   egress         = false
-  from_port      = 32768
+  from_port      = 1024
   network_acl_id = aws_network_acl.private.id
   protocol       = "tcp"
   rule_action    = "allow"
@@ -140,7 +140,7 @@ resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv4" {
 
 resource "aws_network_acl_rule" "private_ingress_internal_ephemeral_tcp_ipv6" {
   egress          = false
-  from_port       = 32768
+  from_port       = 1024
   ipv6_cidr_block = "::/0"
   network_acl_id  = aws_network_acl.private.id
   protocol        = "tcp"
