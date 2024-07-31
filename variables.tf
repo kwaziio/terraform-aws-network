@@ -150,6 +150,6 @@ variable "subnets_public" {
 
 variable "subnets_public_tags" {
   default     = {}
-  description = "Additional Tags to Add to All Private Subnets"
+  description = "Additional Tags to Add to All Public Subnets"
   type        = map(string)
 }
