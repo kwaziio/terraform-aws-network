@@ -20,11 +20,14 @@ resource "aws_subnet" "private" {
     aws_vpc_ipv4_cidr_block_association.secondary,
   ]
 
-  tags = {
-    Name = "${var.network_tags_name}-${var.subnets_private[count.index].name}"
-    Type = "private"
-    Zone = "${data.aws_region.current.id}${lower(var.subnets_private[count.index].zone)}"
-  }
+  tags = merge(
+    {
+      Name = "${var.network_tags_name}-${var.subnets_private[count.index].name}"
+      Type = "private"
+      Zone = "${data.aws_region.current.id}${lower(var.subnets_private[count.index].zone)}"
+    },
+    var.subnets_private_tags
+  )
 }
 
 resource "aws_network_acl_association" "private" {
@@ -61,11 +64,14 @@ resource "aws_subnet" "public" {
     aws_vpc_ipv4_cidr_block_association.secondary,
   ]
 
-  tags = {
-    Name = "${var.network_tags_name}-${var.subnets_public[count.index].name}"
-    Type = "public"
-    Zone = "${data.aws_region.current.id}${lower(var.subnets_public[count.index].zone)}"
-  }
+  tags = merge(
+    {
+      Name = "${var.network_tags_name}-${var.subnets_public[count.index].name}"
+      Type = "public"
+      Zone = "${data.aws_region.current.id}${lower(var.subnets_public[count.index].zone)}"
+    },
+    var.subnets_public_tags
+  )
 }
 
 resource "aws_network_acl_association" "public" {

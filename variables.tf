@@ -131,6 +131,12 @@ variable "subnets_private" {
   }))
 }
 
+variable "subnets_private_tags" {
+  default     = {}
+  description = "Additional Tags to Add to All Private Subnets"
+  type        = map(string)
+}
+
 variable "subnets_public" {
   default     = []
   description = "List of Public Subnets w/ Assigned Name and IPv4 CIDR Values"
@@ -140,4 +146,10 @@ variable "subnets_public" {
     name = string
     zone = string
   }))
+}
+
+variable "subnets_public_tags" {
+  default     = {}
+  description = "Additional Tags to Add to All Private Subnets"
+  type        = map(string)
 }
